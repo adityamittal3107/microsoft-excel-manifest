@@ -1,0 +1,186 @@
+<!-- Created:ce44715c-8c4e-446b-879c-ea9ebe0f09c8 -->
+<!--  Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. 4  See LICENSE in the project root for license information  -->
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
+<link type="text/css" rel="stylesheet" id="dark-mode-custom-link"/>
+<link type="text/css" rel="stylesheet" id="dark-mode-general-link"/>
+<style lang="en" type="text/css" id="dark-mode-custom-style"/>
+<style lang="en" type="text/css" id="dark-mode-native-style"/>
+<style lang="en" type="text/css" id="dark-mode-native-sheet"/>
+<!--  Begin Basic Settings: Add-in metadata, used for all versions of Office unless override provided.  -->
+<!--  IMPORTANT! Id must be unique for your add-in, if you reuse this manifest ensure that you change this id to a new GUID.  -->
+<Id>336feaa1-698c-4ec4-8fd2-ed5350945dea</Id>
+<!-- Version. Updates from the store only get triggered if there is a version change.  -->
+<Version>1.0.0.0</Version>
+<ProviderName>ThoughtSpot</ProviderName>
+<DefaultLocale>en-US</DefaultLocale>
+<!--  The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog.  -->
+<DisplayName DefaultValue="ThoughtSpot Analytics test"/>
+<Description DefaultValue="Light Up Your Data with ThoughtSpot Analytics"/>
+<!--  Icon for your add-in. Used on installation screens and the add-ins dialog.  -->
+<IconUrl DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_32x32.png"/>
+<HighResolutionIconUrl DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_64x64.png"/>
+<SupportUrl DefaultValue="https://sl.thoughtspot.com/excel/support"/>
+<!--  Domains that will be allowed when navigating. For example, if you use ShowTaskpane and then have an href link, navigation will only be allowed if the domain is on this list.  -->
+<AppDomains>
+<AppDomain>https://sl.thoughtspot.com/new</AppDomain>
+</AppDomains>
+<!-- End Basic Settings.  -->
+<!-- Begin TaskPane Mode integration. This section is used if there are no VersionOverrides or if the Office client version does not support add-in commands.  -->
+<Hosts>
+<Host Name="Workbook"/>
+</Hosts>
+<DefaultSettings>
+<SourceLocation DefaultValue="https://sl.thoughtspot.com/new/excel/Taskpane.php"/>
+</DefaultSettings>
+<!--  End TaskPane Mode integration.   -->
+<Permissions>ReadWriteDocument</Permissions>
+<!--  Begin Add-in Commands Mode integration.  -->
+<VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+<!--  The Hosts node is required.  -->
+<Hosts>
+<!--  Each host can have a different set of commands.  -->
+<!--  Excel host is Workbook, Word host is Document, and PowerPoint host is Presentation.  -->
+<!--  Make sure the hosts you override match the hosts declared in the top section of the manifest.  -->
+<Host xsi:type="Workbook">
+<!--  Form factor. Currently only DesktopFormFactor is supported.  -->
+<DesktopFormFactor>
+<!-- "This code enables a customizable message to be displayed when the add-in is loaded successfully upon individual install." -->
+<GetStarted>
+<!--  Title of the Getting Started callout. resid points to a ShortString resource  -->
+<Title resid="SL.GetStarted.Title"/>
+<!--  Description of the Getting Started callout. resid points to a LongString resource  -->
+<Description resid="SL.GetStarted.Description"/>
+<!--  Point to a url resource which details how the add-in should be used.  -->
+<LearnMoreUrl resid="SL.GetStarted.LearnMoreUrl"/>
+</GetStarted>
+<!--  Function file is a HTML page that includes the JavaScript where functions for ExecuteAction will be called. 
+            Think of the FunctionFile as the code behind ExecuteFunction.  -->
+<FunctionFile resid="SL.DesktopFunctionFile.Url"/>
+<!--  PrimaryCommandSurface is the main Office Ribbon.  -->
+<ExtensionPoint xsi:type="PrimaryCommandSurface">
+<!--  Use OfficeTab to extend an existing Tab. Use CustomTab to create a new tab.  -->
+<OfficeTab id="TabHome">
+<!--  Ensure you provide a unique id for the group. Recommendation for any IDs is to namespace using your company name.  -->
+<Group id="SL.Group1">
+<!--  Label for your group. resid must point to a ShortString resource.  -->
+<Label resid="SL.Group1Label"/>
+<!--  Icons. Required sizes 16,32,80, optional 20, 24, 40, 48, 64. Strongly recommended to provide all sizes for great UX.  -->
+<!--  Use PNG icons. All URLs on the resources section must use HTTPS.  -->
+<Icon>
+<bt:Image size="16" resid="SL.tpicon_16x16"/>
+<bt:Image size="20" resid="SL.tpicon_20x20"/>
+<bt:Image size="24" resid="SL.tpicon_24x24"/>
+<bt:Image size="32" resid="SL.tpicon_32x32"/>
+<bt:Image size="40" resid="SL.tpicon_40x40"/>
+<bt:Image size="48" resid="SL.tpicon_48x48"/>
+<bt:Image size="64" resid="SL.tpicon_64x64"/>
+<bt:Image size="80" resid="SL.tpicon_80x80"/>
+</Icon>
+<!--  Control. It can be of type "Button" or "Menu".  -->
+<Control xsi:type="Button" id="SL.FunctionButton">
+<Label resid="SL.FunctionButton.Label"/>
+<Supertip>
+<!--  ToolTip title. resid must point to a ShortString resource.  -->
+<Title resid="SL.FunctionButton.Label"/>
+<!--  ToolTip description. resid must point to a LongString resource.  -->
+<Description resid="SL.FunctionButton.Tooltip"/>
+</Supertip>
+<Icon>
+<bt:Image size="16" resid="SL.funcicon_16x16"/>
+<bt:Image size="32" resid="SL.funcicon_32x32"/>
+<bt:Image size="80" resid="SL.funcicon_80x80"/>
+</Icon>
+<!--  This is what happens when the command is triggered (E.g. click on the Ribbon). Supported actions are ExecuteFunction or ShowTaskpane.  -->
+<Action xsi:type="ExecuteFunction">
+<FunctionName>doSomethingAndShowDialog</FunctionName>
+</Action>
+<!--  <Enabled>true</Enabled>  -->
+</Control>
+</Group>
+</OfficeTab>
+</ExtensionPoint>
+</DesktopFormFactor>
+</Host>
+</Hosts>
+<!--  You can use resources across hosts and form factors.  -->
+<Resources>
+<bt:Images>
+<bt:Image id="SL.tpicon_16x16" DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_16x16.png"/>
+<bt:Image id="SL.tpicon_20x20" DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_20x20.png"/>
+<bt:Image id="SL.tpicon_24x24" DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_24x24.png"/>
+<bt:Image id="SL.tpicon_32x32" DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_32x32.png"/>
+<bt:Image id="SL.tpicon_40x40" DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_40x40.png"/>
+<bt:Image id="SL.tpicon_48x48" DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_48x48.png"/>
+<bt:Image id="SL.tpicon_64x64" DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_64x64.png"/>
+<bt:Image id="SL.tpicon_80x80" DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_80x80.png"/>
+<bt:Image id="SL.funcicon_16x16" DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_16x16.png"/>
+<bt:Image id="SL.funcicon_32x32" DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_32x32.png"/>
+<bt:Image id="SL.funcicon_80x80" DefaultValue="https://sl.thoughtspot.com/excel/images/ts_logo_80x80.png"/>
+</bt:Images>
+<bt:Urls>
+<bt:Url id="SL.DesktopFunctionFile.Url" DefaultValue="https://sl.thoughtspot.com/new/excel/FunctionFile.php"/>
+<bt:Url id="SL.Taskpane.Url" DefaultValue="https://sl.thoughtspot.com/excel/new/Taskpane.php"/>
+<bt:Url id="SL.GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812"/>
+</bt:Urls>
+<!--  ShortStrings max characters==125.  -->
+<bt:ShortStrings>
+<bt:String id="SL.TaskpaneButton.Label" DefaultValue="Dialog from Task Pane"/>
+<bt:String id="SL.FunctionButton.Label" DefaultValue="ThoughtSpot Analytics"/>
+<bt:String id="SL.Group1Label" DefaultValue="ThoughtSpot"/>
+<bt:String id="SL.GetStarted.Title" DefaultValue="Congratulations!"/>
+</bt:ShortStrings>
+<!--  LongStrings max characters==250.  -->
+<bt:LongStrings>
+<bt:String id="SL.TaskpaneButton.Tooltip" DefaultValue="Click to Show a Task Pane"/>
+<bt:String id="SL.FunctionButton.Tooltip" DefaultValue="Click to Execute a Function"/>
+<bt:String id="SL.GetStarted.Description" DefaultValue="ThoughtSpot Analytics has been successfully installed."/>
+</bt:LongStrings>
+</Resources>
+<WebApplicationInfo>
+<Id>07f1db1c-97b3-4943-8ff3-0577312c0ff8</Id>
+<Resource>api://sl.thoughtspot.com/07f1db1c-97b3-4943-8ff3-0577312c0ff8</Resource>
+<Scopes>
+<Scope>files.read</Scope>
+<Scope>access_as_user</Scope>
+<Scope>profile</Scope>
+<Scope>openid</Scope>
+</Scopes>
+</WebApplicationInfo>
+</VersionOverrides>
+<!--  End Add-in Commands Mode integration.  -->
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+<SignedInfo>
+<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+<SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+<Reference URI="">
+<Transforms>
+<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+<Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+</Transforms>
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+<DigestValue>1iVXYyQRAyP8QVrgfnPjW9EqnsW4gE3RlHkT/Je5F4k=</DigestValue>
+</Reference>
+</SignedInfo>
+<SignatureValue>fsndAfGJLtvqk0l+qj8tJG4r/ERxqWsPgOZIRYc9D9+aN6aduA+6/gDr069DrIFSxngKgQIRMQpYmHPmh4T2v33PgxOpBlvtFYO6dCJ6Yfp3GNLpVotXKfKBOHOxyhbN6ZkhKftAsowtpiCehDKPgwc6CgkcFOuU4xuNZli2mMyMN0tT8e1IBtR9etjfBc2GyNdLlVLt9aKnI/NuW4kgfl9wVdt35R5JTvD+frlV5dsBV5aLGxYB2/Fh9ltRVQymwIcSiSTOXyT8L/5LxXWRr5HIO/Ah0qtxvYTRWcOLLOQ6qujEITg+U3k3EDVZf9xX0cTOOTj+eqPF6LRUfA/Ymw==</SignatureValue>
+<KeyInfo>
+<KeyValue>
+<RSAKeyValue>
+<Modulus>rmJDAklojI5RrPu2Cz7BUeSqYpkgauEc7Fbta0zXUZjoM0SWXMh/eB3CfUodiy37lIpNlC77OWTRK7ehsY8PH6Ce5/xZ09RlOEiNs+9F2uuIZWwZZAapikzeMEdJ0wpkhuY1E/fc/kqt5ShYRV0+bXxTMwQtb4n2CFFC9Xce7ab2dqOUm/YKgWIx8OySONUgBM+Wnz2S5dQEigT7DG7NLCZdjid35woJRqtVSIDp18vyJE5gEn9kn4IaV7VsFyeC6Z1X87RgjVlYMjPZ/GgUOICzZWkds+RsCHQqQr/OrKcxPJ9Zrb3JlTWPkdCMkTaAiUT5LgJ/Dfakr2gC/TXyyw==</Modulus>
+<Exponent>AQAB</Exponent>
+</RSAKeyValue>
+</KeyValue>
+<X509Data>
+<X509Certificate>MIIFDTCCA/WgAwIBAgITMwAABK2qwu4KOrkO2AAAAAAErTANBgkqhkiG9w0BAQsFADB+MQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2FzaGluZ3RvbjEQMA4GA1UEBxMHUmVkbW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMSgwJgYDVQQDEx9NaWNyb3NvZnQgQ29kZSBTaWduaW5nIFBDQSAyMDEwMB4XDTIyMDYwNzE3NDQxMVoXDTIzMDYwMTE3NDQxMVowgZExCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMR4wHAYDVQQKExVNaWNyb3NvZnQgQ29ycG9yYXRpb24xOzA5BgNVBAMTMk1pY3Jvc29mdCBDb3Jwb3JhdGlvbiBUaGlyZC1QYXJ0eSBBcHAgRGlzdHJpYnV0aW9uMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArmJDAklojI5RrPu2Cz7BUeSqYpkgauEc7Fbta0zXUZjoM0SWXMh/eB3CfUodiy37lIpNlC77OWTRK7ehsY8PH6Ce5/xZ09RlOEiNs+9F2uuIZWwZZAapikzeMEdJ0wpkhuY1E/fc/kqt5ShYRV0+bXxTMwQtb4n2CFFC9Xce7ab2dqOUm/YKgWIx8OySONUgBM+Wnz2S5dQEigT7DG7NLCZdjid35woJRqtVSIDp18vyJE5gEn9kn4IaV7VsFyeC6Z1X87RgjVlYMjPZ/GgUOICzZWkds+RsCHQqQr/OrKcxPJ9Zrb3JlTWPkdCMkTaAiUT5LgJ/Dfakr2gC/TXyywIDAQABo4IBbjCCAWowHwYDVR0lBBgwFgYKKwYBBAGCN0wBAQYIKwYBBQUHAwMwHQYDVR0OBBYEFDuxr/BWx1Wv4FAmzCIJUB4bXCeCMEUGA1UdEQQ+MDykOjA4MR4wHAYDVQQLExVNaWNyb3NvZnQgQ29ycG9yYXRpb24xFjAUBgNVBAUTDTIzMjk3Nys0NzA4MTQwHwYDVR0jBBgwFoAU5vxfe7siAFjkck619CF0IzLm76wwVgYDVR0fBE8wTTBLoEmgR4ZFaHR0cDovL2NybC5taWNyb3NvZnQuY29tL3BraS9jcmwvcHJvZHVjdHMvTWljQ29kU2lnUENBXzIwMTAtMDctMDYuY3JsMFoGCCsGAQUFBwEBBE4wTDBKBggrBgEFBQcwAoY+aHR0cDovL3d3dy5taWNyb3NvZnQuY29tL3BraS9jZXJ0cy9NaWNDb2RTaWdQQ0FfMjAxMC0wNy0wNi5jcnQwDAYDVR0TAQH/BAIwADANBgkqhkiG9w0BAQsFAAOCAQEAGe6xV+lLCkzriEyOxJ0VEu65dJI55vmFFfh5GBTKlMmHD1ojOUL+CDGv3I3kwMCfUXVFhi69E13/J83pi4EcpJzMngKps4QVcGJbSDmqglQjUE7vIqTBAXk1YhFvglqzjUsPtGDOp6Mh37r4H66vLJV7t2tALIr6j2c+9md2o2C6xJ/em+1B7yLaWdklR8PEcbjg8Jif4du1jPI61mXSIWVPEwDGG5YDxPH7UNgJI2EBzhbese2rlryWYlkHP/crZ7wRHdF+MPIXkUBJa1SNWQQ5uWejq8lyUgllBqH+xNVa6pRyV/ukRA7DmGEVpn6k9B8zKvoL5XsTQQof4QFVUA==</X509Certificate>
+<X509Certificate>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</X509Certificate>
+<X509Certificate>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</X509Certificate>
+</X509Data>
+</KeyInfo>
+<Object Id="ts-countersig">
+<X509Data>
+<X509Certificate>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</X509Certificate>
+<X509Certificate>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</X509Certificate>
+</X509Data>
+<CounterSignature xmlns="http://schemas.microsoft.com/xmldsig/timestamp/2003" ts-format="cms-timestamp-message">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</CounterSignature>
+</Object>
+</Signature>
+</OfficeApp>
